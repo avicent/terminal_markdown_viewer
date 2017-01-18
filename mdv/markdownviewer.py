@@ -159,7 +159,7 @@ envget = os.environ.get
 
 # ---------------------------------------------------------------------- Config
 hr_sep, txt_block_cut, code_pref, list_pref, bquote_pref, hr_ends = \
-    '─', '✂', '| ', '- ', '|', '◈'
+    '─', '✂', '| ', '- ', '|', ''
 # ansi cols (default):
 # R: Red (warnings), L: low visi, BG: background, BGL: background light, C=code
 # H1 - H5 = the theme, the numbers are the ansi color codes:
@@ -452,7 +452,7 @@ class Tags:
     """ can be overwritten in derivations. """
     # @staticmethod everywhere is eye cancer, so we instantiate it later
     def h(_, s, level):
-        return '\n%s%s' % (low('#' * 0), col(s, globals()['H%s' % level]))
+        return '\n%s%s\n' % (low('#' * 0), col(s, globals()['H%s' % level]))
     def h1(_, s, **kw): return _.h(s, 1)
     def h2(_, s, **kw): return _.h(s, 2)
     def h3(_, s, **kw): return _.h(s, 3)
@@ -469,7 +469,7 @@ class Tags:
         hir = kw.get('hir', 1)
         ind = (hir - 1) * left_indent
         s = e = col(hr_ends, globals()['H%s' % hir])
-        return low('\n%s%s%s%s%s\n' % (ind, s, hr_marker, e, ind))
+        return low('\n%s%s%s%s%s' % (ind, s, hr_marker, e, ind))
 
     def code(_, s, from_fenced_block=None, **kw):
         """ md code AND ``` style fenced raw code ends here"""
@@ -908,7 +908,8 @@ def set_hr_widths(result):
         hcl = clean_ansi(hr)
         ind = len(hcl) - len(hcl.split(hr_marker, 1)[1]) - 1
         w = min(term_columns, mw) - 2 * ind
-        hrf = hr.replace(hr_marker, hr_sep * w)
+        # Using full term size for the separator
+        hrf = hr.replace(hr_marker, hr_sep * term_columns)
         result = result.replace(hr, hrf)
     return result
 

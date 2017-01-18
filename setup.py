@@ -13,7 +13,7 @@
 
 
 from setuptools import setup, find_packages
-version = '1.6.3'
+version = '1.6.3-av.1'
 
 setup(
     name='mdv',
@@ -25,8 +25,8 @@ setup(
     long_description=open('README.rst').read(),
     install_requires=["pyyaml", "pygments", "markdown", "docopt"],
     include_package_data=True,
-    url='http://github.com/axiros/terminal_markdown_viewer',
-    download_url='http://github.com/axiros/terminal_markdown_viewer/tarball/' + version,
+    url='http://github.com/avicent/terminal_markdown_viewer',
+    download_url='http://github.com/avicent/terminal_markdown_viewer/tarball/' + version,
     keywords = ['markdown', 'markup', 'terminal', 'hilighting', 'syntax', 'source code'],
     test_suite='nose.collector',
     tests_require=['nose'],
